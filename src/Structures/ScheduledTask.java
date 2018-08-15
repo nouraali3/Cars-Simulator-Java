@@ -14,6 +14,7 @@ public class ScheduledTask extends TimerTask
         now = new Date(); // initialize date
         System.out.println("Time is :" + now); // Display current time
         // start reading from CSV file from previous entry
+        //send to spring batch job through http client
     }
 
     

@@ -5,6 +5,11 @@
  */
 package ui;
 
+import Structures.ScheduledTask;
+import java.util.Timer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author user
@@ -148,7 +153,25 @@ public class CarsControlPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        Timer time = new Timer(); // Instantiate Timer Object
+        ScheduledTask st = new ScheduledTask(); // Instantiate SheduledTask class
+        time.schedule(st, 0, 1000); // Create Repetitively task for every 1 secs
+
+        //for demo only.
+        for (int i = 0; i <= 5; i++) {
+                System.out.println("Execution in Main Thread...." + i);
+            try {Thread.sleep(2000);}
+            catch (InterruptedException ex) 
+            {Logger.getLogger(CarsControlPanel.class.getName()).log(Level.SEVERE, null, ex);}
+            if (i == 5) 
+            {
+                    System.out.println("Application Terminates");
+                    System.exit(0);
+            }
+        }
+        
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
