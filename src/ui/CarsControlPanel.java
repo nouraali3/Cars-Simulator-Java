@@ -5,10 +5,7 @@
  */
 package ui;
 
-import Structures.ScheduledTask;
-import java.util.Timer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import structures.WorkingThread;
 
 /**
  *
@@ -59,6 +56,11 @@ public class CarsControlPanel extends javax.swing.JFrame {
         });
 
         jButton3.setText("start");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Car 1");
 
@@ -149,30 +151,22 @@ public class CarsControlPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        WorkingThread wt = new WorkingThread();
+        wt.start();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Timer time = new Timer(); // Instantiate Timer Object
-        ScheduledTask st = new ScheduledTask(); // Instantiate SheduledTask class
-        time.schedule(st, 0, 1000); // Create Repetitively task for every 1 secs
-
-        //for demo only.
-        for (int i = 0; i <= 5; i++) {
-                System.out.println("Execution in Main Thread...." + i);
-            try {Thread.sleep(2000);}
-            catch (InterruptedException ex) 
-            {Logger.getLogger(CarsControlPanel.class.getName()).log(Level.SEVERE, null, ex);}
-            if (i == 5) 
-            {
-                    System.out.println("Application Terminates");
-                    System.exit(0);
-            }
-        }
+        WorkingThread wt = new WorkingThread();
+        wt.start();
         
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        WorkingThread wt = new WorkingThread();
+        wt.start();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
