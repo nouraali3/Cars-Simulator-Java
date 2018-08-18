@@ -8,7 +8,6 @@ package structures;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ui.CarsControlPanel;
 
 
 public class WorkingThread extends Thread
@@ -17,22 +16,13 @@ public class WorkingThread extends Thread
     @Override
     public void run() 
     {
-        Timer time = new Timer(); // Instantiate Timer Object
-        ScheduledTask st = new ScheduledTask(); // Instantiate SheduledTask class
-        time.schedule(st, 0, 1000); // Create Repetitively task for every 1 secs
-
-        //for demo only.
-        for (int i = 0; i <= 5; i++) {
-                System.out.println("Execution in Main Thread...." + i);
-            try {Thread.sleep(5000);}
-            catch (InterruptedException ex) 
-            {Logger.getLogger(CarsControlPanel.class.getName()).log(Level.SEVERE, null, ex);}
-            if (i == 0) 
-            {
-                    System.out.println("Application Terminates");
-                    System.exit(0);
-            }
-        }
+        Timer timer = new Timer(true); // Instantiate Timer Object
+        //ScheduledTask st = new ScheduledTask(); // Instantiate SheduledTask class
+        int position = 0;
+        timer.scheduleAtFixedRate(new ScheduledTask(), 0, 1000); // Create Repetitively task for every 1 second and ==> force the working thread to sleep for 5 seconds
+        try {  Thread.sleep(15000); } 
+        catch (InterruptedException ex) {System.err.println("error in sleeping thread, error is "+ex);}
+        timer.cancel();
     }
     
 }

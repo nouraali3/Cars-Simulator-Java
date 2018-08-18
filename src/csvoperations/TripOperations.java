@@ -13,6 +13,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 
+
 public class TripOperations 
 {
     Reader reader ;
@@ -30,9 +31,7 @@ public class TripOperations
     {
         try 
         {
-            reader = Files.newBufferedReader(Paths.get(path));
-            csvParser = new CSVParser(reader,
-                    CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
+            reader = Files.newBufferedReader(Paths.get(path));             
         }
         catch (IOException ex)
         {
@@ -46,22 +45,26 @@ public class TripOperations
        * @param position is the starting position (e.g. x) of the records to be brought
        * @return  4 records starting from position x
        */   
-    public List<Trip> readFromCSVFile(int position)
+    public List<Trip> readFromCSVFile(long position) throws IOException
     {
-        List<Trip> trips = new ArrayList<Trip>();
         
+        List<Trip> trips = new ArrayList<>();
+        
+        csvParser = new CSVParser(reader,
+                                CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim(),
+                                 position,position);
         Trip trip;
         int i=0;
-        ///////////////// ///////// to be changed to start from certain position
-            for(CSVRecord record : csvParser )
+        
+        for(CSVRecord record : csvParser )
+        {
+            if(i++<4)
             {
-                if(i++<4)
-                {
-                    trip = new Trip(Integer.parseInt(record.get("trip_id")), Integer.parseInt(record.get("beaglebone_id")), record.get("date"));
-                    trips.add(trip);
-                }
-                
+                trip = new Trip(Integer.parseInt(record.get("trip_id")), Integer.parseInt(record.get("beaglebone_id")), record.get("date"));
+                trips.add(trip);
             }
+
+        }
         
         return trips;
     }
