@@ -5,7 +5,12 @@
  */
 package datatypes;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,13 +21,27 @@ public class Position {
     double latitude, longitude, altitude;
     Date timeStamp;
 
-    public Position(int posID, int tripID, double latitude, double longitude, double altitude, Date timeStamp) {
+    public Position(int posID, int tripID, double latitude, double longitude, double altitude, String timeStamp) {
         this.posID = posID;
         this.tripID = tripID;
         this.latitude = latitude;
         this.longitude = longitude;
         this.altitude = altitude;
-        this.timeStamp = timeStamp;
+        
+        DateFormat formatter = new SimpleDateFormat("yy-mm-dd hh:mm:ss");
+        try 
+        {
+            this.timeStamp = (Date)formatter.parse(timeStamp);
+        }
+        catch (ParseException ex) 
+        {
+            System.err.println("error in converting string to date of format HH:mm:ss, error is "+ex);
+        }
+        
+        
+    }
+
+    public Position() {
     }
 
     public int getPosID() {
@@ -69,8 +88,21 @@ public class Position {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimeStamp(String timeStamp) {
+        DateFormat formatter = new SimpleDateFormat("yy-mm-dd hh:mm:ss");
+        try 
+        {
+            this.timeStamp = (Date)formatter.parse(timeStamp);
+        }
+        catch (ParseException ex) 
+        {
+            System.err.println("error in converting string to date of format HH:mm:ss, error is "+ex);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Position{" + "posID=" + posID + ", tripID=" + tripID + ", latitude=" + latitude + ", longitude=" + longitude + ", altitude=" + altitude + ", timeStamp=" + timeStamp + '}';
     }
     
     

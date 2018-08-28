@@ -38,6 +38,10 @@ public class Trip
         }
     }
 
+    public Trip() {
+        
+    }
+
     public int getTripID() {
         return tripID;
     }

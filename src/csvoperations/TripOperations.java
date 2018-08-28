@@ -17,19 +17,12 @@ import org.apache.commons.csv.CSVRecord;
 public class TripOperations 
 {
     Reader reader ;
-    CSVParser csvParser;
+    
+    String path = "Dataset/trips.csv";
 
-    public TripOperations() {
-    }
-    
-    
-    /**
-     * 
-     * @param path is the path of the trips.csv file
-     */
-    public TripOperations(String path)
+    public TripOperations()
     {
-        try 
+       try 
         {
             reader = Files.newBufferedReader(Paths.get(path));             
         }
@@ -37,35 +30,49 @@ public class TripOperations
         {
             System.err.print("error in loading  trips.csv file, error is "+ex);
         }
-      
     }
-    
+
       /**
        * 
        * @param position is the starting position (e.g. x) of the records to be brought
        * @return  4 records starting from position x
        */   
-    public List<Trip> readFromCSVFile(long position) throws IOException
+    public Trip readFromCSVFile(long position) throws IOException
     {
         
-        List<Trip> trips = new ArrayList<>();
         
+        CSVParser csvParser = new CSVParser(reader,
+                                CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
+        Trip trip = null;
+        
+        
+        long totalRecordsNum = csvParser.getRecords().size();
+
+        
+        System.out.println("position = "+position);
+        System.out.println("total records = "+totalRecordsNum);
+        
+        if(position > totalRecordsNum)
+            return trip;
+        
+        long curRecordNum;
+        
+        reader = Files.newBufferedReader(Paths.get(path));   
         csvParser = new CSVParser(reader,
-                                CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim(),
-                                 position,position);
-        Trip trip;
-        int i=0;
-        
+                                CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
         for(CSVRecord record : csvParser )
         {
-            if(i++<4)
+            curRecordNum = record.getRecordNumber();
+            if(curRecordNum < position)
+            {}
+            else if(curRecordNum == position)
             {
                 trip = new Trip(Integer.parseInt(record.get("trip_id")), Integer.parseInt(record.get("beaglebone_id")), record.get("date"));
-                trips.add(trip);
+                break;
             }
-
+            else
+                break;
         }
-        
-        return trips;
+        return trip;
     }
 }

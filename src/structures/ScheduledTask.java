@@ -1,7 +1,9 @@
 
 package structures;
 
+import csvoperations.PositionOperations;
 import csvoperations.TripOperations;
+import datatypes.Position;
 import datatypes.Trip;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,65 +13,62 @@ import java.util.List;
 
 public class ScheduledTask extends TimerTask
 {    
-    Date now; // to display current time
-	// Add your task here
+    private static int recordNum = 1;
     
-    int position;
     private TripOperations to;
-    List<Trip> trips;
-    private static int tripID=0;
+    private PositionOperations po;
     
-//    public ScheduledTask() {
-//        this.position = tripID;
-//        to = new TripOperations("Dataset/trips.csv");
-//        trips = new ArrayList<>();
-//        System.out.println("position is "+position);
-//    }
+    Trip trip;
+    Position position;
 
-    
-//    public ScheduledTask(int position) {
-//        this.position = position;
-//        to = new TripOperations("Dataset/trips.csv");
-//        trips = new ArrayList<>();
-//        System.out.println("position is "+position);
-//    }
-    
     
     @Override
     public void run() 
     {   
-        trips = getTripsFromFile();
-        
-        //send to spring batch job through http client
-//        sendTripsToHTTPClient(trips);
-        
+//        trip = getTripsFromFile();
+        position = getPositionFromFile();
     }
 
-    private List<Trip> getTripsFromFile() 
+    private Trip getTripsFromFile() 
     {
-        List<Trip> mtrips = new ArrayList<>();
-        to = new TripOperations("Dataset/trips.csv");
-        this.position = tripID;        
-        System.out.println("position is "+position);
+        Trip t =  new Trip();        
+        to = new TripOperations();
+        
         // start reading from CSV file from previous entry
         try 
         {
-            mtrips = to.readFromCSVFile(position);
-            if (mtrips.size()==0)
+            t = to.readFromCSVFile(recordNum++);
+            System.out.println("trip info is "+t.toString());
+            
+            if (t == null)
                 System.exit(0);
+            
         } 
         catch (IOException ex) 
-            {System.err.println("TestFunctionality: error in calling readFromCSVFile, error is "+ex);}
-        for(Trip trip : mtrips)
-        {
-            System.out.println("trip id is "+ (tripID++) +" is "+trip.toString());
-        }
-        
-        return mtrips;
+        {System.err.println("TestFunctionality: error in calling readFromCSVFile, error is "+ex);}
+     
+        return t;
     }
 
-    private void sendTripsToHTTPClient(List<Trip> trips) 
+    private Position getPositionFromFile() 
     {
+        Position p =  new Position();        
+        po = new PositionOperations();
+        
+        // start reading from CSV file from previous entry
+        try 
+        {
+            p = po.readFromCSVFile(recordNum++,3);
+            System.out.println("position info is "+p.toString());
+            
+            if (p == null)
+                System.exit(0);
+            
+        } 
+        catch (IOException ex) 
+        {System.err.println("TestFunctionality: error in calling readFromCSVFile, error is "+ex);}
+     
+        return p;
     }
 
     

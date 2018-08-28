@@ -18,9 +18,8 @@ public class WorkingThread extends Thread
     {
         Timer timer = new Timer(true); // Instantiate Timer Object
         //ScheduledTask st = new ScheduledTask(); // Instantiate SheduledTask class
-        int position = 0;
         timer.scheduleAtFixedRate(new ScheduledTask(), 0, 1000); // Create Repetitively task for every 1 second and ==> force the working thread to sleep for 5 seconds
-        try {  Thread.sleep(15000); } 
+        try {  Thread.sleep(150000); } 
         catch (InterruptedException ex) {System.err.println("error in sleeping thread, error is "+ex);}
         timer.cancel();
     }
