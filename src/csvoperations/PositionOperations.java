@@ -42,14 +42,9 @@ public class PositionOperations
         CSVParser csvParser = new CSVParser(reader,
                                 CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
         
-//        Trip trip = null;
         Position position = null ;
         
         long totalRecordsNum = csvParser.getRecords().size();
-
-        
-        System.out.println("position = "+requiredRecordNum);
-        System.out.println("total records = "+totalRecordsNum);
         
         if(requiredRecordNum > totalRecordsNum)
             return position;
