@@ -30,9 +30,9 @@ public class CarsControlPanel extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        carbtn1 = new javax.swing.JButton();
+        carbtn2 = new javax.swing.JButton();
+        carbtn3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -41,24 +41,24 @@ public class CarsControlPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("start");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        carbtn1.setText("start");
+        carbtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                carbtn1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("start");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        carbtn2.setText("start");
+        carbtn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                carbtn2ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("start");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        carbtn3.setText("start");
+        carbtn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                carbtn3ActionPerformed(evt);
             }
         });
 
@@ -100,9 +100,9 @@ public class CarsControlPanel extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
+                    .addComponent(carbtn2)
+                    .addComponent(carbtn1)
+                    .addComponent(carbtn3))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -112,11 +112,11 @@ public class CarsControlPanel extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(carbtn1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(carbtn2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(carbtn3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -150,23 +150,20 @@ public class CarsControlPanel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        WorkingThread wt = new WorkingThread();
+    private void carbtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carbtn2ActionPerformed
+        WorkingThread wt = new WorkingThread(3);
         wt.start();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_carbtn2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        WorkingThread wt = new WorkingThread();
-        wt.start();
-        
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void carbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carbtn1ActionPerformed
+        WorkingThread wt2 = new WorkingThread(3);
+        wt2.start();
+    }//GEN-LAST:event_carbtn1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        WorkingThread wt = new WorkingThread();
-        wt.start();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void carbtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carbtn3ActionPerformed
+        WorkingThread wt3 = new WorkingThread(3);
+        wt3.start();
+    }//GEN-LAST:event_carbtn3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,9 +201,9 @@ public class CarsControlPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton carbtn1;
+    private javax.swing.JButton carbtn2;
+    private javax.swing.JButton carbtn3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

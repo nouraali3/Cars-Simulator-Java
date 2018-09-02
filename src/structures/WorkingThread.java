@@ -12,13 +12,21 @@ import java.util.logging.Logger;
 
 public class WorkingThread extends Thread
 {
-
+    int tripId;
+    public WorkingThread() {
+    }
+    
+    public WorkingThread(int tripId) {
+        this.tripId = tripId;
+    }
+    
     @Override
     public void run() 
     {
         Timer timer = new Timer(true); 
-        
-        timer.scheduleAtFixedRate(new ScheduledTask(), 0, 1000); 
+        ScheduledTask scheduledTask = new ScheduledTask();
+        scheduledTask.setTrip(tripId);
+        timer.scheduleAtFixedRate(scheduledTask, 0, 1000); 
         
         try {  Thread.sleep(150000); } 
         catch (InterruptedException ex) {System.err.println("error in sleeping thread, error is "+ex);}

@@ -16,26 +16,26 @@ import java.util.Scanner;
 public class ScheduledTask extends TimerTask
 {    
     private static int recordNum = 1;
-    private static int tripId =3;
+    private static int tripId;
     private PositionOperations po;
     
     Trip trip;
     Position position;
     
     public void setTrip(int tId)
-    {tripId = tId;}
+    {tripId = 3;}
     
     @Override
     public void run() 
     {   
         position = getPositionFromFile();
         if (position == null)
-            System.exit(0);
+            return;
         else
         {
-//         try { sendPosition(position);  System.out.println("position info is "+position.toString()); } 
-//         catch (IOException ex) { System.err.println("Scheduled Task: error in sending the position, error is "+ex); }
-            System.out.println("position info is "+position.toString());
+         try { sendPosition(position);  System.out.println("position info is "+position.toString()); } 
+         catch (IOException ex) { System.err.println("Scheduled Task: error in sending the position, error is "+ex); }
+//            System.out.println("position info is "+position.toString());
         }
     }
 
@@ -47,7 +47,7 @@ public class ScheduledTask extends TimerTask
         // start reading from CSV file from previous entry
         try 
         {
-            p = po.readFromCSVFile(recordNum++,3);
+            p = po.readFromCSVFile(recordNum++,tripId);
 
         } 
         catch (IOException ex) 
