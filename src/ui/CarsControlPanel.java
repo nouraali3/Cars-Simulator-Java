@@ -5,6 +5,9 @@
  */
 package ui;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import structures.WorkingThread;
 
 /**
@@ -151,18 +154,30 @@ public class CarsControlPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carbtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carbtn2ActionPerformed
-        WorkingThread wt = new WorkingThread(3);
-        wt.start();
+        try {
+            WorkingThread wt = new WorkingThread(4);
+            wt.start();
+        } catch (IOException ex) {
+            Logger.getLogger(CarsControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_carbtn2ActionPerformed
 
     private void carbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carbtn1ActionPerformed
-        WorkingThread wt2 = new WorkingThread(3);
-        wt2.start();
+        try {
+            WorkingThread wt2 = new WorkingThread(3);
+            wt2.start();
+        } catch (IOException ex) {
+            Logger.getLogger(CarsControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_carbtn1ActionPerformed
 
     private void carbtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carbtn3ActionPerformed
-        WorkingThread wt3 = new WorkingThread(3);
-        wt3.start();
+        try {
+            WorkingThread wt3 = new WorkingThread(5);
+            wt3.start();
+        } catch (IOException ex) {
+            Logger.getLogger(CarsControlPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_carbtn3ActionPerformed
 
     /**

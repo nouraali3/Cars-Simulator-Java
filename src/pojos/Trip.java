@@ -3,19 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package datatypes;
+package pojos;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
+import java.util.Date;
+import java.util.List;
 
 public class Trip 
 {
     int tripID, beaglebone;
     Date date;
+    List<Position> positions;
 
+    public Trip(int tripID, int beaglebone, Date date, List<Position> positions) {
+        this.tripID = tripID;
+        this.beaglebone = beaglebone;
+        this.date = date;
+        this.positions = positions;
+    }
+    
+    
+    
     /**
      * 
      * @param tripID
@@ -74,10 +86,21 @@ public class Trip
         }
     }
 
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public void setPositions(List<Position> positions) {
+        this.positions = positions;
+    }
+
     @Override
     public String toString() {
-        return "Trip{" + "tripID=" + tripID + ", beaglebone=" + beaglebone + ", date=" + date + '}';
+        return "Trip{" + "tripID=" + tripID + ", beaglebone=" + beaglebone + ", date=" + date + ", positions=" + positions + '}';
     }
+
+    
+    
     
     
     

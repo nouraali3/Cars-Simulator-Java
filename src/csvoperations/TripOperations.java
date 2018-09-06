@@ -1,7 +1,8 @@
 
 package csvoperations;
 
-import datatypes.Trip;
+import pojos.Position;
+import pojos.Trip;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -16,15 +17,30 @@ import org.apache.commons.csv.CSVRecord;
 
 public class TripOperations 
 {
-    Reader reader ;
+    private String path = "Dataset/trips.csv";
+    private List<Trip> trips = new ArrayList<>();
     
-    String path = "Dataset/trips.csv";
-
+    //initialize trips
     public TripOperations()
     {
        try 
         {
-            reader = Files.newBufferedReader(Paths.get(path));             
+            
+            Reader reader = Files.newBufferedReader(Paths.get(path));  
+            CSVParser csvParser = new CSVParser(reader,
+                                CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
+            System.out.println("printing all trips ");
+            int i=1;
+            for(CSVRecord record : csvParser )
+            {
+                Trip trip =new Trip(Integer.parseInt(record.get("trip_id")),
+                                    Integer.parseInt(record.get("beaglebone_id")),
+                                    record.get("date"));
+                System.out.println("trip "+(i++)+" is "+trip.toString());
+                trips.add(trip);
+            }
+            
+            
         }
         catch (IOException ex)
         {
@@ -32,47 +48,15 @@ public class TripOperations
         }
     }
 
-      /**
-       * 
-       * @param position is the starting position (e.g. x) of the records to be brought
-       * @return  4 records starting from position x
-       */   
-    public Trip readFromCSVFile(long position) throws IOException
+    public Trip getTrip(int tripId)
     {
-        
-        
-        CSVParser csvParser = new CSVParser(reader,
-                                CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
-        Trip trip = null;
-        
-        
-        long totalRecordsNum = csvParser.getRecords().size();
-
-        
-        System.out.println("position = "+position);
-        System.out.println("total records = "+totalRecordsNum);
-        
-        if(position > totalRecordsNum)
-            return trip;
-        
-        long curRecordNum;
-        
-        reader = Files.newBufferedReader(Paths.get(path));   
-        csvParser = new CSVParser(reader,
-                                CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
-        for(CSVRecord record : csvParser )
+        for (Trip trip : trips) 
         {
-            curRecordNum = record.getRecordNumber();
-            if(curRecordNum < position)
-            {}
-            else if(curRecordNum == position)
-            {
-                trip = new Trip(Integer.parseInt(record.get("trip_id")), Integer.parseInt(record.get("beaglebone_id")), record.get("date"));
-                break;
-            }
-            else
-                break;
+            if(trip.getTripID()== tripId)
+                return trip;
         }
-        return trip;
+        return null;
     }
+    
+    
 }

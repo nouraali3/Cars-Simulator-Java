@@ -5,27 +5,48 @@
  */
 package structures;
 
+import csvoperations.PositionOperations;
+import csvoperations.TripOperations;
+import pojos.Trip;
+import java.io.IOException;
 import java.util.Timer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class WorkingThread extends Thread
 {
-    int tripId;
+    
+    
+    //operations
+    //read all trips when initializing tripOperations
+    private static TripOperations tripOperations = new TripOperations();
+    private PositionOperations positionOperations = new PositionOperations();
+    
+    
+   //information
+    private int tripId;
+    private Trip trip;
+    
     public WorkingThread() {
     }
     
-    public WorkingThread(int tripId) {
+    public WorkingThread(int tripId) throws IOException 
+    {
         this.tripId = tripId;
+        this.trip = tripOperations.getTrip(tripId);
+        
+        //this method must be synchronous, as multiple thread may access positions.csv file at the same time
+        this.trip.setPositions(positionOperations.getTripPositions(tripId));
+        
     }
     
     @Override
     public void run() 
     {
         Timer timer = new Timer(true); 
+        System.out.println("Working Thread: trip id is "+tripId + "trip positions = "+trip.getPositions().size());
+        
         ScheduledTask scheduledTask = new ScheduledTask();
-        scheduledTask.setTrip(tripId);
+        scheduledTask.setTripInformation(trip);
         timer.scheduleAtFixedRate(scheduledTask, 0, 1000); 
         
         try {  Thread.sleep(150000); } 

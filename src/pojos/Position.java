@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package datatypes;
+package pojos;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -96,6 +96,16 @@ public class Position {
         {
             System.err.println("error in converting string to date of format HH:mm:ss, error is "+ex);
         }
+    }
+    
+    public double getDifference(Position secondPosition)
+    {
+        
+        double latDif = this.getLatitude()-secondPosition.getLatitude();
+        double longDif = this.getLongitude()-secondPosition.getLongitude();
+        //double altDif = this.getAltitude()-secondPosition.getAltitude();
+//        return Math.sqrt( Math.pow(latDif, 2) + Math.pow(longDif, 2) +Math.pow(altDif, 2) );
+        return Math.sqrt( Math.pow(latDif, 2) + Math.pow(longDif, 2) );
     }
 
     @Override
