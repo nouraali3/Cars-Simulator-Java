@@ -8,6 +8,9 @@ import java.util.Properties;
 
 public class KafkaProducerClass {
     
+    
+    //NOTE:- when sending a msg from the producer and the topic or server ip/post is wrong,
+    //no error will be released in netbeans, but the msg won't reach the consumer
     private final static String TOPIC = "car-data";
     private final static String BOOTSTRAP_SERVERS ="localhost:9092";
     
@@ -28,20 +31,19 @@ public class KafkaProducerClass {
     
     
     
-    static void runProducer(final int sendMessageCount) throws Exception 
+    static void runProducer1(final int sendMessageCount) throws Exception 
     {
       final Producer<Long, String> producer = createProducer();
       long time = System.currentTimeMillis();
       try 
       {
-        for (long index = time; index < time + sendMessageCount; index++) 
-        {
-            final ProducerRecord<Long, String> record = new ProducerRecord<>(TOPIC, index,"Hello Mom " + index);
+       
+            final ProducerRecord<Long, String> record = new ProducerRecord<>(TOPIC, time,"Hello Mom " + time);
             RecordMetadata metadata = producer.send(record).get();
             long elapsedTime = System.currentTimeMillis() - time;
             System.out.printf("sent record(key=%s value=%s) " + "meta(partition=%d, offset=%d) time=%d\n",
                               record.key(), record.value(), metadata.partition(),metadata.offset(), elapsedTime);
-        }
+        
       } 
       finally 
       {
@@ -50,17 +52,38 @@ public class KafkaProducerClass {
       }
     }
     
+    static void runProducer(String msg) throws Exception 
+    {
+      final Producer<Long, String> producer = createProducer();
+      long time = System.currentTimeMillis();
+      try 
+      {
+        // producer send a record to the defined topic with key = time and value = msg
+        final ProducerRecord<Long, String> record = new ProducerRecord<>(TOPIC, time, msg);
+        RecordMetadata metadata = producer.send(record).get();
+        long elapsedTime = System.currentTimeMillis() - time;
+        System.out.printf("sent record(key=%s value=%s) " + "meta(partition=%d, offset=%d) time=%d\n",
+                          record.key(), record.value(), metadata.partition(),metadata.offset(), elapsedTime);
+        
+      } 
+      finally 
+      {
+        producer.flush();
+        producer.close();
+      }
+    }
     
-    public static void main(String... args) throws Exception {
-    if (args.length == 0) 
-    {
-        runProducer(5);
-    }
-    else
-    {
-        runProducer(Integer.parseInt(args[0]));
-    }
-}
+//    public static void main(String... args) throws Exception 
+//    {
+//        if (args.length == 0) 
+//        {
+//            runProducer1(5);
+//        }
+//        else
+//        {
+//            runProducer1(Integer.parseInt(args[0]));
+//        }
+//    }
     
     
 }
