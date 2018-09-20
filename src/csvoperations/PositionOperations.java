@@ -28,21 +28,34 @@ public class PositionOperations
         CSVParser csvParser = new CSVParser(positionsReader,
                                 CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
         
-        boolean trip = false;        
+        boolean tripBool = false;
         for(CSVRecord record : csvParser )
         {
-            if(Integer.parseInt(record.get("trip_id"))== tripId)
+            if(tripId==5)
+                System.out.println("trip id is 5");
+            
+            if(record.get("trip_id").length()>0)
             {
-                trip =true;
-                Position position=new Position(Integer.parseInt(record.get("pos_id")),
-                            tripId,
-                            Double.parseDouble(record.get("latitude")),
-                            Double.parseDouble(record.get("longitude")),
-                            Double.parseDouble(record.get("altitude")), 
-                            record.get("timestamp"));
-                positions.add(position);
+                if(Integer.parseInt(record.get("trip_id"))== tripId)
+                {
+                    tripBool =true;
+                    Position position=new Position(Integer.parseInt(record.get("pos_id")),
+                                                    tripId,
+                                                    Double.parseDouble(record.get("latitude")),
+                                                    Double.parseDouble(record.get("longitude")),
+                                                    Double.parseDouble(record.get("altitude")), 
+                                                    Double.parseDouble(record.get("speed")),
+                                                    Double.parseDouble(record.get("rpm")),
+                                                    Double.parseDouble(record.get("fuel")) );
+                    positions.add(position);
+                }
+                else
+                {
+                    if(tripBool == true)
+                        break;
+                }
             }
-            if(trip ==true && Integer.parseInt(record.get("trip_id"))!= tripId )
+            else
                 break;
         }
         return positions;

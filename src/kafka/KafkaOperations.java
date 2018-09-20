@@ -1,43 +1,45 @@
 
 package kafka;
 
+import com.google.gson.JsonObject;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import pojos.Position;
 
 public class KafkaOperations
-{
-    private KafkaProducerClass producer;
-    
+{    
     public KafkaOperations() 
     {
     }
     
-    public void sendTripInfo(int tripID, int beaglebone, Position position , double velocity) throws UnsupportedEncodingException
+    public void sendRecordInfo(long recordNum , Position currentPosition) throws UnsupportedEncodingException
     {
-        String charset = java.nio.charset.StandardCharsets.UTF_8.name();  // Or in Java 7 and later, use the constant: java.nio.charset.StandardCharsets.UTF_8.name()
-        String position_Id = Integer.toString(position.getPosID());
-        String trip_Id = Integer.toString(position.getTripID());
-        String latitude = Double.toString(position.getLatitude());
-        String longitude = Double.toString(position.getLongitude());
-        String altitude = Double.toString(position.getAltitude());
-        String velocityString = Double.toString(velocity);
-
-        String msg = String.format("position_id=%s&trip_id=%s&latitude=%s&longitude=%s&altitude=%s&velocity=%s",
-                URLEncoder.encode(position_Id, charset),
-                URLEncoder.encode(trip_Id, charset),
-                URLEncoder.encode(latitude, charset),
-                URLEncoder.encode(longitude, charset),
-                URLEncoder.encode(altitude, charset),
-                URLEncoder.encode(velocityString, charset)); 
+        int tripID = currentPosition.getTripID();
+        long positionID = currentPosition.getPosID();
+        double latitude = currentPosition.getLatitude();
+        double longitude = currentPosition.getLongitude();
+        double altitude = currentPosition.getAltitude();
+        double speed = currentPosition.getSpeed();
+        double rpm = currentPosition.getRpm();
+        double fuel = currentPosition.getFuel();
+        
+        JsonObject record = new JsonObject();
+        record.addProperty("trip_id", tripID);
+        record.addProperty("record_number", recordNum);
+        record.addProperty("position_id", positionID);
+        record.addProperty("latitude", latitude);
+        record.addProperty("longitude", longitude);
+        record.addProperty("altitude", altitude);
+        record.addProperty("speed", speed);
+        record.addProperty("rpm", rpm);
+        record.addProperty("fuel", fuel);
         
         try {
-            KafkaProducerClass.runProducer(msg);
+            KafkaProducerClass.runProducer(record.toString());
         } catch (Exception ex) {
             System.err.println("Kafka Operations :- error in running producer, error is "+ex);
         }
     }
+    
+    
 }
 

@@ -8,7 +8,7 @@ package ui;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import structures.WorkingThread;
+import backqroundwork.WorkingThread;
 
 /**
  *
@@ -76,22 +76,22 @@ public class CarsControlPanel extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(41, 41, 41)
                 .addComponent(jLabel8)
-                .addGap(57, 57, 57)
+                .addGap(65, 65, 65)
                 .addComponent(carbtn3)
-                .addGap(39, 39, 39))
+                .addGap(31, 31, 31))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(carbtn3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 2, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(carbtn3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -162,9 +162,9 @@ public class CarsControlPanel extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(51, 51, 51)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(carbtn2)
-                .addGap(39, 39, 39))
+                .addGap(32, 32, 32))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +177,7 @@ public class CarsControlPanel extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel7))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                        .addGap(19, 19, 19)
                         .addComponent(carbtn2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

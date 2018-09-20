@@ -31,26 +31,27 @@ public class KafkaProducerClass {
     
     
     
-    static void runProducer1(final int sendMessageCount) throws Exception 
-    {
-      final Producer<Long, String> producer = createProducer();
-      long time = System.currentTimeMillis();
-      try 
-      {
-       
-            final ProducerRecord<Long, String> record = new ProducerRecord<>(TOPIC, time,"Hello Mom " + time);
-            RecordMetadata metadata = producer.send(record).get();
-            long elapsedTime = System.currentTimeMillis() - time;
-            System.out.printf("sent record(key=%s value=%s) " + "meta(partition=%d, offset=%d) time=%d\n",
-                              record.key(), record.value(), metadata.partition(),metadata.offset(), elapsedTime);
-        
-      } 
-      finally 
-      {
-        producer.flush();
-        producer.close();
-      }
-    }
+//    static void runProducer1(final int sendMessageCount) throws Exception 
+//    {
+//      final Producer<Long, String> producer = createProducer();
+//      long time = System.currentTimeMillis();
+//      try 
+//      {
+//          for (int i=0 ; i<sendMessageCount ; i++)
+//          {
+//            final ProducerRecord<Long, String> record = new ProducerRecord<>(TOPIC, time,"Hello Mom " + time);
+//            RecordMetadata metadata = producer.send(record).get();
+//            long elapsedTime = System.currentTimeMillis() - time;
+//            System.out.printf("sent record(key=%s value=%s) " + "meta(partition=%d, offset=%d) time=%d\n",
+//                             record.key(), record.value(), metadata.partition(),metadata.offset(), elapsedTime);
+//          }
+//      } 
+//      finally 
+//      {
+//        producer.flush();
+//        producer.close();
+//      }
+//    }
     
     static void runProducer(String msg) throws Exception 
     {
@@ -77,7 +78,7 @@ public class KafkaProducerClass {
 //    {
 //        if (args.length == 0) 
 //        {
-//            runProducer1(5);
+//            runProducer1(25);
 //        }
 //        else
 //        {
